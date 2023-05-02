@@ -1,0 +1,14 @@
+# Utilisation de la webcam et traitement des images capturées
+opencv-python
+
+# Manipulation des images
+Pillow
+
+# Gestion des événements de la fenêtre graphique et affichage des éléments graphiques
+pygame
+
+# Stockage des données du jeu (énigmes, réponses, classes, etc.)
+pandas
+
+# Classification des réponses en bonnes ou mauvaises réponses à l'aide d'un modèle de classification
+scikit-learn
