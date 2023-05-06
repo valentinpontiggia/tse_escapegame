@@ -38,17 +38,17 @@ def startGame():
     # Toujours ajouter une référence au background pour éviter qu'elle soit détruite
     new_canvas.canva = new_canvas
 
-    timer_canvas = tk.Canvas(mainwindow,width=800,height=30,name="timer")
-    timer_canvas.pack(side="top")
+    top_canvas = tk.Canvas(mainwindow,width=800,height=30,name="timer")
+    top_canvas.pack(side="top")
     # Toujours ajouter une référence au background pour éviter qu'elle soit détruite
-    timer_canvas.canva = timer_canvas
+    top_canvas.canva = top_canvas
 
 
     new_img = ImageTk.PhotoImage(Image.open("couloir.jpg"))
     new_img.img = new_img
     new_canvas.create_image(0,0,image=new_img,anchor="nw")
     
-    timer_text = timer_canvas.create_text(700,0, text='60:00',anchor="nw",fill="darkblue",font=("Helvetica",20, "bold"),tags=("timer"))
+    timer_text = top_canvas.create_text(700,0, text='60:00',anchor="nw",fill="darkblue",font=("Helvetica",20, "bold"),tags=("timer"))
     
 
     def update_timer():
@@ -56,11 +56,11 @@ def startGame():
         minutes, seconds = divmod(countdown_time, 60)
         # Format the time as MM:SS
         timer_hour = f"{minutes:02d}:{seconds:02d}"
-        timer_canvas.itemconfig(timer_text, text=timer_hour)
+        top_canvas.itemconfig(timer_text, text=timer_hour)
         if countdown_time > 0:
             # Schedule the function to be called again after 1 second
             countdown_time -= 1
-            timer_canvas.after(1000, update_timer)
+            top_canvas.after(1000, update_timer)
     
     update_timer()
     new_canvas.create_text(400,460,text="Vous voici dans le couloir\n des associations. Commencez à\n enquêter en choisissant dans \nquelle association vous souhaitez\n récolter des indices")

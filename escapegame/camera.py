@@ -1,6 +1,7 @@
 import cv2
 import tkinter as tk
 from PIL import Image, ImageTk
+from classification import ImageClassifier
 class CameraApp:
     def __init__(self, master):
         self.master = master
@@ -9,7 +10,7 @@ class CameraApp:
         self.canvas = tk.Canvas(self.master, width=640, height=480)
         self.canvas.pack()
 
-        self.btn_capture = tk.Button(self.master, text="Capture", command=self.capture)
+        self.btn_capture = tk.Button(self.master, text="Capture", command=self.capture())
         self.btn_capture.pack()
 
         self.update_stream()
@@ -24,7 +25,13 @@ class CameraApp:
         self.master.after(10, self.update_stream)
 
     def capture(self):
+        self.btn_classify = tk.Button(self.master, text="Classifier", command=self.classify)
+        self.btn_classify.pack()    
         _, frame = self.camera.read()
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         img = Image.fromarray(frame)
-        img.save("Test.jpg")
+        img.save("reponse.jpg")
+        
+    def classify(self):
+        image_classifier = ImageClassifier()
+        image_classifier.predict_single_image("reponse.jpg")
