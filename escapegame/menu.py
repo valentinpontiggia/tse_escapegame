@@ -77,36 +77,50 @@ def startGame():
     button4 = tk.Button(mainwindow, text="INSPIRE", **button_style, command = swapToBg4)
     button4_window = new_canvas.create_window(540,420,anchor="nw", window=button4)
 
+    buttonEnd = tk.Button(mainwindow, text="Accuser", **button_style, command = startCamera)
+    buttonEnd_window = new_canvas.create_window(350,100,anchor="nw", window=buttonEnd)
+
 def startCamera():
     camWindow = tk.Toplevel(mainwindow)
     camWindow.title("Caméra")
     camWindow.geometry("450x600")
     cam = camera.CameraApp(camWindow)
-
     
 def swapToBg1():
     for widgets in mainwindow.winfo_children():
         if isinstance(widgets, tk.Canvas):
             if widgets.winfo_name() != "timer":
                 widgets.destroy()
+            else :
+                buttonBack = tk.Button(mainwindow, text="Back", **button_style, command = startGame)
+                button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
 
 def swapToBg2():
     for widgets in mainwindow.winfo_children():
-      if not isinstance(widgets, tk.Canvas):
+      if isinstance(widgets, tk.Canvas):
             if widgets.winfo_name() != "timer":
                 widgets.destroy()
+            else :
+                buttonBack = tk.Button(mainwindow, text="Back", **button_style, command = startGame)
+                button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
     
 def swapToBg3():
     for widgets in mainwindow.winfo_children():
-      if not isinstance(widgets, tk.Canvas):
+      if isinstance(widgets, tk.Canvas):
             if widgets.winfo_name() != "timer":
                 widgets.destroy()
+            else :
+                buttonBack = tk.Button(mainwindow, text="Back", **button_style, command = startGame)
+                button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
     
 def swapToBg4():
     for widgets in mainwindow.winfo_children():
-      if not isinstance(widgets, tk.Canvas):
+      if isinstance(widgets, tk.Canvas):
             if widgets.winfo_name() != "timer":
                 widgets.destroy()
+            else :
+                buttonBack = tk.Button(mainwindow, text="Back", **button_style, command = startGame)
+                button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
 
 
 # Programme principal : fenêtre d'accueil
@@ -149,7 +163,6 @@ button_style = {
 }
 
 # Création du bouton Start
-buttonStartbg = ImageTk.PhotoImage(Image.open("start_button.png"))
 start_button = tk.Button(mainwindow, text="START", **button_style, command=startGame)
 start_button_window = start_canvas.create_window(540,140,anchor="nw", window=start_button)
 

@@ -1,6 +1,6 @@
 import cv2
 import tkinter as tk
-from PIL import Image
+from PIL import Image, ImageTk
 class CameraApp:
     def __init__(self, master):
         self.master = master
