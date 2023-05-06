@@ -1,6 +1,6 @@
 import tkinter as tk
-from PIL import ImageTk, Image
-import time
+from PIL import ImageTk, Image, ImageDraw
+import camera
 
 # Crée une nouvelle fenêtre décrivant le scénario
 def scenarioWindow():
@@ -33,16 +33,22 @@ def startGame():
     start_button.destroy()
     start_canvas.destroy()
 
-    new_canvas = tk.Canvas(mainwindow,width=800,height=600)
-    new_canvas.pack(fill="both", expand=True)
+    new_canvas = tk.Canvas(mainwindow,width=800,height=550)
+    new_canvas.pack(side="bottom")
     # Toujours ajouter une référence au background pour éviter qu'elle soit détruite
     new_canvas.canva = new_canvas
 
+    timer_canvas = tk.Canvas(mainwindow,width=800,height=30,name="timer")
+    timer_canvas.pack(side="top")
+    # Toujours ajouter une référence au background pour éviter qu'elle soit détruite
+    timer_canvas.canva = timer_canvas
+
+
     new_img = ImageTk.PhotoImage(Image.open("couloir.jpg"))
     new_img.img = new_img
-    new_canvas.create_image(0,50,image=new_img,anchor="nw")
+    new_canvas.create_image(0,0,image=new_img,anchor="nw")
     
-    timer_text = new_canvas.create_text(700,20, text='60:00',anchor="nw",fill="darkblue",font=("Helvetica",20, "bold"),tags=("timer"))
+    timer_text = timer_canvas.create_text(700,0, text='60:00',anchor="nw",fill="darkblue",font=("Helvetica",20, "bold"),tags=("timer"))
     
 
     def update_timer():
@@ -50,49 +56,57 @@ def startGame():
         minutes, seconds = divmod(countdown_time, 60)
         # Format the time as MM:SS
         timer_hour = f"{minutes:02d}:{seconds:02d}"
-        new_canvas.itemconfig(timer_text, text=timer_hour)
+        timer_canvas.itemconfig(timer_text, text=timer_hour)
         if countdown_time > 0:
             # Schedule the function to be called again after 1 second
             countdown_time -= 1
-            new_canvas.after(1000, update_timer)
+            timer_canvas.after(1000, update_timer)
     
     update_timer()
-    new_canvas.create_text(400,510,text="Vous voici dans le couloir\n des associations. Commencez à\n enquêter en choisissant dans \nquelle association vous souhaitez\n récolter des indices")
+    new_canvas.create_text(400,460,text="Vous voici dans le couloir\n des associations. Commencez à\n enquêter en choisissant dans \nquelle association vous souhaitez\n récolter des indices")
     
     button1 = tk.Button(mainwindow, text="BDE", **button_style, command = swapToBg1)
-    button1_window = new_canvas.create_window(540,140,anchor="nw", window=button1)
+    button1_window = new_canvas.create_window(540,90,anchor="nw", window=button1)
     
     button2 = tk.Button(mainwindow, text="BDS", **button_style, command = swapToBg2)
-    button2_window = new_canvas.create_window(540,250,anchor="nw", window=button2)
+    button2_window = new_canvas.create_window(540,200,anchor="nw", window=button2)
     
     button3 = tk.Button(mainwindow, text="BDA", **button_style, command = swapToBg3)
-    button3_window = new_canvas.create_window(540,360,anchor="nw", window=button3)
+    button3_window = new_canvas.create_window(540,310,anchor="nw", window=button3)
     
     button4 = tk.Button(mainwindow, text="INSPIRE", **button_style, command = swapToBg4)
-    button4_window = new_canvas.create_window(540,470,anchor="nw", window=button4)
+    button4_window = new_canvas.create_window(540,420,anchor="nw", window=button4)
+
+def startCamera():
+    camWindow = tk.Toplevel(mainwindow)
+    camWindow.title("Caméra")
+    camWindow.geometry("450x600")
+    cam = camera.CameraApp(camWindow)
+
     
 def swapToBg1():
     for widgets in mainwindow.winfo_children():
         if isinstance(widgets, tk.Canvas):
-            if not widgets.find_withtag("timer"):
-                
-        if not isinstance(widgets, tk.Menu) and widgets.winfo_name != "timer_text":
-            widgets.destroy()
+            if widgets.winfo_name() != "timer":
+                widgets.destroy()
 
 def swapToBg2():
     for widgets in mainwindow.winfo_children():
-      if not isinstance(widgets, tk.Menu):
-            widgets.destroy()
+      if not isinstance(widgets, tk.Canvas):
+            if widgets.winfo_name() != "timer":
+                widgets.destroy()
     
 def swapToBg3():
     for widgets in mainwindow.winfo_children():
-      if not isinstance(widgets, tk.Menu):
-            widgets.destroy()
+      if not isinstance(widgets, tk.Canvas):
+            if widgets.winfo_name() != "timer":
+                widgets.destroy()
     
 def swapToBg4():
     for widgets in mainwindow.winfo_children():
-      if not isinstance(widgets, tk.Menu):
-            widgets.destroy()
+      if not isinstance(widgets, tk.Canvas):
+            if widgets.winfo_name() != "timer":
+                widgets.destroy()
 
 
 # Programme principal : fenêtre d'accueil
@@ -121,9 +135,21 @@ for x in range(len(rulestext)+1):
 
 
 # Style des boutons
-button_style = {"font":("Verdana",20,"bold"), "fg":"black"}
+button_style = {
+    "fg": "#902038",     # Couleur du texte blanc
+    "font": ("Verdana", 14, "bold"),   # Police en gras, taille 14
+    "bd": 3,           # Largeur de la bordure de 3 pixels
+    "relief": "ridge", # Type de bordure en relief
+    "activebackground": "#2B91FF",    # Couleur de fond lors du survol de la souris
+    "activeforeground": "white",      # Couleur du texte lors du survol de la souris
+    "highlightcolor": "#F4FA58",      # Couleur de la bordure lors du survol de la souris
+    "highlightbackground" : "darkgrey",
+    "highlightthickness": 2,          # Epaisseur de la bordure lors du survol de la souris
+    "cursor": "hand2"    # Curseur de souris en forme de main pour indiquer l'interactivité
+}
 
 # Création du bouton Start
+buttonStartbg = ImageTk.PhotoImage(Image.open("start_button.png"))
 start_button = tk.Button(mainwindow, text="START", **button_style, command=startGame)
 start_button_window = start_canvas.create_window(540,140,anchor="nw", window=start_button)
 

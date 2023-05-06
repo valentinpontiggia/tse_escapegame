@@ -1,26 +1,30 @@
 import cv2
+import tkinter as tk
+from PIL import Image
+class CameraApp:
+    def __init__(self, master):
+        self.master = master
+        self.camera = cv2.VideoCapture(0)
 
-cam = cv2.VideoCapture(0)
-img_counter = 0
-cv2.namedWindow("EscapeGame",cv2.WND_PROP_FULLSCREEN)
-while True:
-    ret, frame = cam.read()
-    if not ret:
-        print("failed to grab frame")
-        break
-        cv2.imshow("test", frame)
+        self.canvas = tk.Canvas(self.master, width=640, height=480)
+        self.canvas.pack()
 
-        k = cv2.waitKey(1)
-        if k%256 == 27:
-                # ESC pressed
-            print("Escape hit, closing...")
-            break
-    elif k%256 == 32:
-                # SPACE pressed
-        img_name = "opencv_frame_{}.png".format(img_counter)
-        cv2.imwrite(img_name, frame)
-        print("{} written!".format(img_name))
-        img_counter += 1
+        self.btn_capture = tk.Button(self.master, text="Capture", command=self.capture)
+        self.btn_capture.pack()
 
-cam.release()
-cv2.destroyAllWindows()
+        self.update_stream()
+
+    def update_stream(self):
+        _, frame = self.camera.read()
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        img = Image.fromarray(frame)
+        imgtk = ImageTk.PhotoImage(image=img)
+        self.canvas.create_image(0, 0, anchor="nw", image=imgtk)
+        self.canvas.imgtk = imgtk
+        self.master.after(10, self.update_stream)
+
+    def capture(self):
+        _, frame = self.camera.read()
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        img = Image.fromarray(frame)
+        img.save("Test.jpg")
