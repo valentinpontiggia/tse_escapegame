@@ -2,6 +2,7 @@ import cv2
 import tkinter as tk
 from PIL import Image, ImageTk
 from classification import ImageClassifier
+import keyboard
 
 class InspireRiddle:
     def __init__(self, mainWindow):
@@ -16,5 +17,11 @@ class InspireRiddle:
         self.new_img.img = self.new_img
         self.canvas.create_image(0,20,image=self.new_img,anchor="nw")
         self.canvas.pack(fill="both", expand=True)
+
+        self.enter()
+
+    def enter(self):
+        keyboard.on_press_key("enter", lambda _:print("enter is pressed !"))
+
 
         
