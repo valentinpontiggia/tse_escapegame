@@ -59,7 +59,7 @@ class ImageClassifier:
 
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
-        self.scaler.fit(X_train)
+        self.scaler.fit(X_train.values, X)
         X_train = self.scaler.transform(X_train)
         X_test = self.scaler.transform(X_test)
 

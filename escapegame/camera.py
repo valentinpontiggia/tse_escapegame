@@ -13,6 +13,9 @@ class CameraApp:
         self.btn_capture = tk.Button(self.master, text="Capture", command=self.capture())
         self.btn_capture.pack()
 
+        self.btn_classify = tk.Button(self.master, text="Classifier", command=self.classify)
+        self.btn_classify.pack() 
+        
         self.update_stream()
 
     def update_stream(self):
@@ -24,9 +27,7 @@ class CameraApp:
         self.canvas.imgtk = imgtk
         self.master.after(10, self.update_stream)
 
-    def capture(self):
-        self.btn_classify = tk.Button(self.master, text="Classifier", command=self.classify)
-        self.btn_classify.pack()    
+    def capture(self):   
         _, frame = self.camera.read()
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         img = Image.fromarray(frame)
