@@ -21,7 +21,20 @@ class InspireRiddle:
         self.enter()
 
     def enter(self):
-        keyboard.on_press_key("enter", lambda _:print("enter is pressed !"))
+        keyboard.on_press_key("enter", lambda _:self.morse())
 
+    def morse(self):
+        self.morseWindow = tk.Toplevel(self.mainWindow)
+        self.morseWindow.title("Code Morse")
+        self.morseWindow.geometry("450x600")
 
+        self.morsecanvas = tk.Canvas(self.morseWindow, width=450, height=600)
+        self.morsecanvas.pack(side="bottom")
+        # Toujours ajouter une référence au background pour éviter qu'elle soit détruite
+        self.morsecanvas.canva = self.morsecanvas
+
+        self.morse_img = ImageTk.PhotoImage(Image.open("morse.png"))
+        self.morse_img.img = self.morse_img
+        self.morsecanvas.create_image(0,20,image=self.morse_img,anchor="nw")
+        self.morsecanvas.pack(fill="both", expand=True)
         
