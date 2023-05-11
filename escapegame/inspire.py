@@ -1,7 +1,5 @@
-import cv2
 import tkinter as tk
 from PIL import Image, ImageTk
-from classification import ImageClassifier
 import keyboard
 
 class InspireRiddle:
