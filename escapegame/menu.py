@@ -1,6 +1,7 @@
 import tkinter as tk
 from PIL import ImageTk, Image, ImageDraw
 import camera
+import bde
 import inspire
 import bda
 
@@ -94,9 +95,10 @@ def swapToBg1():
             if widgets.winfo_name() != "timer":
                 widgets.destroy()
             else :
-                buttonBack = tk.Button(mainwindow, text="Back", **button_style, command = startGame)
+                buttonBack = tk.Button(mainwindow, text="Back", **button_style, command = back)
                 button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
-
+                room = bde.Room(mainwindow)
+                
 def swapToBg2():
     for widgets in mainwindow.winfo_children():
       if isinstance(widgets, tk.Canvas):
@@ -105,7 +107,6 @@ def swapToBg2():
             else :
                 buttonBack = tk.Button(mainwindow, text="Back", **button_style, command = startGame)
                 button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
-    
 def swapToBg3():
     for widgets in mainwindow.winfo_children():
       if isinstance(widgets, tk.Canvas):
@@ -126,7 +127,13 @@ def swapToBg4():
                 button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
                 room = inspire.InspireRiddle(mainwindow)
 
-
+def back():
+    for widgets in mainwindow.winfo_children():
+      if isinstance(widgets, tk.Canvas):
+            if widgets.winfo_name() != "timer":
+                widgets.destroy()
+    startGame()
+    
 # Programme principal : fenêtre d'accueil
 mainwindow=tk.Tk()
 mainwindow.title("Escape Game")
