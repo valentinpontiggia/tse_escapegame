@@ -2,6 +2,8 @@ import tkinter as tk
 from PIL import ImageTk, Image, ImageDraw
 import camera
 import bde
+import inspire
+import bda
 
 # Crée une nouvelle fenêtre décrivant le scénario
 def scenarioWindow():
@@ -113,6 +115,7 @@ def swapToBg3():
             else :
                 buttonBack = tk.Button(mainwindow, text="Back", **button_style, command = startGame)
                 button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
+                room = bda.BDARiddle(mainwindow)
     
 def swapToBg4():
     for widgets in mainwindow.winfo_children():
@@ -122,6 +125,7 @@ def swapToBg4():
             else :
                 buttonBack = tk.Button(mainwindow, text="Back", **button_style, command = startGame)
                 button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
+                room = inspire.InspireRiddle(mainwindow)
 
 def back():
     for widgets in mainwindow.winfo_children():
