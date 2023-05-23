@@ -87,12 +87,9 @@ def startGame():
     button_style_doors(button4,11)
     button4_window = new_canvas.create_window(687,215,anchor="nw", window=button4)
 
-    button5 = tk.Button(mainwindow, text="FATSE", command = None)
+    button5 = tk.Button(mainwindow, text="FATSE", command = swapToBg5)
     button_style_doors(button5,6)
     button5_window = new_canvas.create_window(518,215,anchor="nw", window=button5)
-
-    button5 = tk.Button(mainwindow, text="FATSE", **button_style, command = swapToBg5)
-    button5_window = new_canvas.create_window(540,530,anchor="nw", window=button5)
 
     buttonEnd = tk.Button(mainwindow, text="Accuser", **button_style, command = startCamera)
     buttonEnd_window = new_canvas.create_window(350,350,anchor="nw", window=buttonEnd)
