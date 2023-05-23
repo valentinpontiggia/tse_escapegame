@@ -134,7 +134,7 @@ def swapToIndBDA():
             if widgets.winfo_name() != "timer":
                 widgets.destroy()
             else :
-                buttonBack = tk.Button(mainwindow, text="Back", **button_style, command = startGame)
+                buttonBack = tk.Button(mainwindow, text="Back", **button_style, command = back)
                 button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
                 room = indiceBDA.BDAClue(mainwindow)
 
