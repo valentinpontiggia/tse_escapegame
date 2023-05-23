@@ -65,8 +65,11 @@ class ImageClassifier:
 
         self.classifier.fit(X_train, y_train)
         y_pred = self.classifier.predict(X_test)
+        print("Confusion matrix : ")
         print(confusion_matrix(y_test, y_pred))
+        print("Classication report : ")
         print(classification_report(y_test, y_pred))
+        print("Accuracy score : ")
         print(accuracy_score(y_test, y_pred))
 
     def predict_single_image(self, image_path):
