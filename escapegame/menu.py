@@ -71,23 +71,31 @@ def startGame():
     update_timer()
     new_canvas.create_text(400,460,text="Vous voici dans le couloir\n des associations. Commencez à\n enquêter en choisissant dans \nquelle association vous souhaitez\n récolter des indices")
     
-    button1 = tk.Button(mainwindow, text="BDE", **button_style, command = swapToBg1)
-    button1_window = new_canvas.create_window(540,90,anchor="nw", window=button1)
+    button1 = tk.Button(mainwindow, text="BDE", command = swapToBg1)
+    button_style_doors(button1,10)
+    button1_window = new_canvas.create_window(150,216,anchor="nw", window=button1)
     
-    button2 = tk.Button(mainwindow, text="BDS", **button_style, command = swapToBg2)
-    button2_window = new_canvas.create_window(540,200,anchor="nw", window=button2)
+    button2 = tk.Button(mainwindow, text="BDS", command = swapToBg2)
+    button_style_doors(button2,6)
+    button2_window = new_canvas.create_window(291,213,anchor="nw", window=button2)
     
-    button3 = tk.Button(mainwindow, text="BDA", **button_style, command = swapToBg3)
-    button3_window = new_canvas.create_window(540,310,anchor="nw", window=button3)
+    button3 = tk.Button(mainwindow, text="BDA", command = swapToBg3)
+    button_style_doors(button3,5)
+    button3_window = new_canvas.create_window(385,220,anchor="nw", window=button3)
     
-    button4 = tk.Button(mainwindow, text="INSPIRE", **button_style, command = swapToBg4)
-    button4_window = new_canvas.create_window(540,420,anchor="nw", window=button4)
+    button4 = tk.Button(mainwindow, text="INSPIRE", command = swapToBg4)
+    button_style_doors(button4,11)
+    button4_window = new_canvas.create_window(687,215,anchor="nw", window=button4)
+
+    button5 = tk.Button(mainwindow, text="FATSE", command = None)
+    button_style_doors(button5,6)
+    button5_window = new_canvas.create_window(518,215,anchor="nw", window=button5)
 
     button5 = tk.Button(mainwindow, text="FATSE", **button_style, command = swapToBg5)
     button5_window = new_canvas.create_window(540,530,anchor="nw", window=button5)
 
     buttonEnd = tk.Button(mainwindow, text="Accuser", **button_style, command = startCamera)
-    buttonEnd_window = new_canvas.create_window(350,100,anchor="nw", window=buttonEnd)
+    buttonEnd_window = new_canvas.create_window(350,350,anchor="nw", window=buttonEnd)
 
 def startCamera():
     camWindow = tk.Toplevel(mainwindow)
@@ -199,6 +207,22 @@ button_style = {
     "highlightthickness": 2,          # Epaisseur de la bordure lors du survol de la souris
     "cursor": "hand2"    # Curseur de souris en forme de main pour indiquer l'interactivité
 }
+
+# Style des boutons des portes
+def button_style_doors(button,font_size):
+    style = {
+        "fg": "#902038",     # Couleur du texte blanc
+        "font": ("Verdana", font_size, "bold"),   # Police en gras, taille 14
+        "bd": 2,           # Largeur de la bordure de 3 pixels
+        "relief": "ridge", # Type de bordure en relief
+        "activebackground": "#2B91FF",    # Couleur de fond lors du survol de la souris
+        "activeforeground": "white",      # Couleur du texte lors du survol de la souris
+        "highlightcolor": "#F4FA58",      # Couleur de la bordure lors du survol de la souris
+        "highlightbackground" : "darkgrey",
+        "highlightthickness": 2,          # Epaisseur de la bordure lors du survol de la souris
+        "cursor": "hand2"    # Curseur de souris en forme de main pour indiquer l'interactivité
+    }
+    button.config(**style)
 
 # Création du bouton Start
 start_button = tk.Button(mainwindow, text="START", **button_style, command=startGame)
