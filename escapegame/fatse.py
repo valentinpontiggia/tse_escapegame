@@ -11,13 +11,13 @@ class FATSE:
         # Toujours ajouter une référence au background pour éviter qu'elle soit détruite
         self.canvas.canva = self.canvas
 
-        self.bgimg = ImageTk.PhotoImage(Image.open("bg_images/bds.jpeg"))
+        self.bgimg = ImageTk.PhotoImage(Image.open("bg_images/fatse.jpg").resize((800,550), Image.ANTIALIAS))
         self.bgimg.img = self.bgimg
         self.canvas.create_image(0,-25,image=self.bgimg,anchor="nw")
 
-        self.nerdle = tk.PhotoImage(file="bg_images/nerdle.png").subsample(8)
+        self.nerdle = tk.PhotoImage(file="bg_images/safe_code.png").subsample(40)
         self.play_button = tk.Button(self.master, image=self.nerdle, cursor="hand2", command = self.jouer)
-        self.button4_window = self.canvas.create_window(295,240, anchor="nw", window=self.play_button)
+        self.button4_window = self.canvas.create_window(415,435, anchor="nw", window=self.play_button)
 
     def jouer(self):
         print("en train de jouer...")
