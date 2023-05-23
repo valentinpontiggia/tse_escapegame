@@ -1,6 +1,5 @@
 import tkinter as tk
 from PIL import Image, ImageTk
-import keyboard
 
 class InspireRiddle:
     def __init__(self, mainWindow):
