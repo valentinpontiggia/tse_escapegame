@@ -3,6 +3,8 @@ import numpy as np
 import pandas as pd
 import glob
 import os
+import seaborn as sns
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
@@ -65,8 +67,12 @@ class ImageClassifier:
 
         self.classifier.fit(X_train, y_train)
         y_pred = self.classifier.predict(X_test)
+        cf_matrix = confusion_matrix(y_test, y_pred)
         print("Confusion matrix : ")
-        print(confusion_matrix(y_test, y_pred))
+        print(cf_matrix)
+        plt.figure(figsize=(8, 6))
+        sns.heatmap(cf_matrix/np.sum(cf_matrix), annot=True, fmt='.2%', cmap='Blues')
+        plt.show()
         print("Classication report : ")
         print(classification_report(y_test, y_pred))
         print("Accuracy score : ")
