@@ -4,6 +4,7 @@ import camera
 import bde
 import inspire
 import bda
+import bds
 import indiceBDA
 
 # Crée une nouvelle fenêtre décrivant le scénario
@@ -108,6 +109,7 @@ def swapToBg2():
             else :
                 buttonBack = tk.Button(mainwindow, text="Back", **button_style, command = back)
                 button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
+                room = bds.BDS(mainwindow)
 def swapToBg3():
     for widgets in mainwindow.winfo_children():
       if isinstance(widgets, tk.Canvas):
