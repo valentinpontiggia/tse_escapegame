@@ -15,8 +15,9 @@ class BDS:
         self.bgimg.img = self.bgimg
         self.canvas.create_image(0,-25,image=self.bgimg,anchor="nw")
 
-        self.play_button = tk.Button(self.master, text="Jouer", bg="#48FEFF", fg="#38D4FE", command = self.jouer)
-        self.button4_window = self.canvas.create_window(315,250, anchor="nw", window=self.play_button)
+        self.nerdle = tk.PhotoImage(file="bg_images/nerdle.png").subsample(8)
+        self.play_button = tk.Button(self.master, image=self.nerdle, cursor="hand2", command = self.jouer)
+        self.button4_window = self.canvas.create_window(295,240, anchor="nw", window=self.play_button)
 
     def jouer(self):
         print("en train de jouer...")
@@ -49,7 +50,7 @@ class BDS:
         self.eighth_symbol = tk.Entry(self.canvas, bg="#151803", fg="white", justify=tk.CENTER)
         self.eighth_symbol.place(x=597, y=175, width=50, height=50)
         
-        self.btn_check = tk.Button(self.master, text="Vérifier", bg="#48FEFF", fg="#38D4FE", command=self.check)
+        self.btn_check = tk.Button(self.master, text="Vérifier", bg="#48FEFF", fg="black", command=self.check)
         self.buttoncheck_window = self.canvas.create_window(575,300,anchor="nw", window=self.btn_check)
 
     def check(self):
