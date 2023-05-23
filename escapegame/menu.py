@@ -81,7 +81,7 @@ def startGame():
     button4_window = new_canvas.create_window(540,420,anchor="nw", window=button4)
 
     buttonEnd = tk.Button(mainwindow, text="Accuser", **button_style, command = startCamera)
-    buttonEnd_window = new_canvas.create_window(350,100,anchor="nw", window=buttonEnd)
+    buttonEnd_window = new_canvas.create_window(350,150,anchor="nw", window=buttonEnd)
 
 def startCamera():
     camWindow = tk.Toplevel(mainwindow)
@@ -138,6 +138,7 @@ def back():
 mainwindow=tk.Tk()
 mainwindow.title("Escape Game")
 mainwindow.geometry("800x600")
+mainwindow.resizable(width=False,height=False)
 
 start_canvas = tk.Canvas(mainwindow,width=800,height=600)
 start_canvas.pack(fill="both", expand=True)
@@ -161,8 +162,8 @@ for x in range(len(rulestext)+1):
 
 # Style des boutons
 button_style = {
-    "fg": "#902038",     # Couleur du texte blanc
-    "font": ("Verdana", 14, "bold"),   # Police en gras, taille 14
+    "fg": "#902038",     # Couleur du texte
+    "font": ("Verdana", 13, "bold"),   # Police en gras, taille 14
     "bd": 3,           # Largeur de la bordure de 3 pixels
     "relief": "ridge", # Type de bordure en relief
     "activebackground": "#2B91FF",    # Couleur de fond lors du survol de la souris
