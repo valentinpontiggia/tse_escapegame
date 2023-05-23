@@ -4,6 +4,7 @@ import camera
 import bde
 import inspire
 import bda
+import indiceBDA
 
 # Crée une nouvelle fenêtre décrivant le scénario
 def scenarioWindow():
@@ -81,7 +82,7 @@ def startGame():
     button4_window = new_canvas.create_window(540,420,anchor="nw", window=button4)
 
     buttonEnd = tk.Button(mainwindow, text="Accuser", **button_style, command = startCamera)
-    buttonEnd_window = new_canvas.create_window(350,150,anchor="nw", window=buttonEnd)
+    buttonEnd_window = new_canvas.create_window(350,100,anchor="nw", window=buttonEnd)
 
 def startCamera():
     camWindow = tk.Toplevel(mainwindow)
@@ -127,6 +128,16 @@ def swapToBg4():
                 button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
                 room = inspire.InspireRiddle(mainwindow)
 
+def swapToIndBDA():
+    for widgets in mainwindow.winfo_children():
+        if isinstance(widgets, tk.Canvas):
+            if widgets.winfo_name() != "timer":
+                widgets.destroy()
+            else :
+                buttonBack = tk.Button(mainwindow, text="Back", **button_style, command = startGame)
+                button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
+                room = indiceBDA.BDAClue(mainwindow)
+
 def back():
     for widgets in mainwindow.winfo_children():
       if isinstance(widgets, tk.Canvas):
@@ -138,7 +149,6 @@ def back():
 mainwindow=tk.Tk()
 mainwindow.title("Escape Game")
 mainwindow.geometry("800x600")
-mainwindow.resizable(width=False,height=False)
 
 start_canvas = tk.Canvas(mainwindow,width=800,height=600)
 start_canvas.pack(fill="both", expand=True)
@@ -162,8 +172,8 @@ for x in range(len(rulestext)+1):
 
 # Style des boutons
 button_style = {
-    "fg": "#902038",     # Couleur du texte
-    "font": ("Verdana", 13, "bold"),   # Police en gras, taille 14
+    "fg": "#902038",     # Couleur du texte blanc
+    "font": ("Verdana", 14, "bold"),   # Police en gras, taille 14
     "bd": 3,           # Largeur de la bordure de 3 pixels
     "relief": "ridge", # Type de bordure en relief
     "activebackground": "#2B91FF",    # Couleur de fond lors du survol de la souris
@@ -189,7 +199,7 @@ def createMenu():
     menu.add_cascade(label="Contexte", menu=about)
 
     indices=tk.Menu(menu,tearoff=0)
-    indices.add_command(label="Enigme 1", command=None)
+    indices.add_command(label="Enigme BDA", command=swapToIndBDA)
     indices.add_command(label="Enigme 2", command=None)
     indices.add_command(label="Enigme 3", command=None)
     menu.add_cascade(label="Indice",menu=indices)
