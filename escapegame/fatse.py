@@ -67,33 +67,94 @@ class FATSE:
         #self.btn_check = tk.Button(self.master, text="Vérifier", bg="#48FEFF", fg="black", command=self.check)
         #self.buttoncheck_window = self.canvas.create_window(575,300,anchor="nw", window=self.btn_check)
 
+    def open_planning(self):
+        self.planning_window = tk.Toplevel(self.master)
+        self.planning_window.title("Planning des assos")
+        self.planning_window.geometry("450x600")
+
+        self.planning_canvas = tk.Canvas(self.planning_window, width=467, height=667)
+        self.planning_canvas.pack(side="bottom")
+        # Toujours ajouter une référence au background pour éviter qu'elle soit détruite
+        self.planning_canvas.canva = self.planning_canvas
+
+        #self.planning_img = tk.PhotoImage(file="bg_images/planning_assos.jpg").subsample(2)
+        self.planning_img = ImageTk.PhotoImage(Image.open("bg_images/planning_assos.jpg").resize((450, 650)), Image.ANTIALIAS)
+        self.planning_img.img = self.planning_img
+        self.planning_canvas.create_image(0,0,image=self.planning_img,anchor="nw")
+        self.planning_canvas.pack(fill="both", expand=True)
+    
     def plus_one(self, case_number):
         if case_number == 1:
-            self.first_number_text = self.first_number_text + 1
-            self.first_number.config(text=self.first_number_text)
+            if self.first_number_text == 2 and self.second_number_text == 7 and self.third_number_text == 8 :
+                self.first_number_text = self.first_number_text + 1
+                self.first_number.config(text=self.first_number_text)
+                print('gagné !!!!')
+                self.open_planning()
+            elif self.first_number_text == 9:
+                self.first_number_text = 0
+                self.first_number.config(text=self.first_number_text)
+            else:
+                self.first_number_text = self.first_number_text + 1
+                self.first_number.config(text=self.first_number_text)
         elif case_number == 2:
-            self.second_number_text = self.second_number_text + 1
-            self.second_number.config(text=self.second_number_text)
+            if self.first_number_text == 3 and self.second_number_text == 6 and self.third_number_text == 8 :
+                self.second_number_text = self.second_number_text + 1
+                self.second_number.config(text=self.second_number_text)
+                print('gagné !!!!')
+                self.open_planning()
+            elif self.second_number_text == 9:
+                self.second_number_text = 0
+                self.second_number.config(text=self.second_number_text)
+            else:
+                self.second_number_text = self.second_number_text + 1
+                self.second_number.config(text=self.second_number_text)
         else:
-            self.third_number_text = self.third_number_text + 1
-            self.third_number.config(text=self.third_number_text)
+            if self.first_number_text == 3 and self.second_number_text == 7 and self.third_number_text == 7 :
+                self.third_number_text = self.third_number_text + 1
+                self.third_number.config(text=self.third_number_text)
+                print('gagné !!!!')
+                self.open_planning()
+            elif self.third_number_text == 9:
+                self.third_number_text = 0
+                self.third_number.config(text=self.third_number_text)
+            else:
+                self.third_number_text = self.third_number_text + 1
+                self.third_number.config(text=self.third_number_text)
 
     def minus_one(self, case_number):
         if case_number == 1:
-            if self.first_number_text == 0:
-                self.first_number_text = 0
+            if self.first_number_text == 4 and self.second_number_text == 7 and self.third_number_text == 8 :
+                self.first_number_text = self.first_number_text - 1
+                self.first_number.config(text=self.first_number_text)
+                print('gagné !!!!')
+                self.open_planning()
+            elif self.first_number_text == 0:
+                self.first_number_text = 9
+                self.first_number.config(text=self.first_number_text)
             else:
                 self.first_number_text = self.first_number_text - 1
                 self.first_number.config(text=self.first_number_text)
         elif case_number == 2:
-            if self.second_number_text == 0:
-                self.second_number_text = 0
+            if self.first_number_text == 3 and self.second_number_text == 8 and self.third_number_text == 8 :
+                self.second_number_text = self.second_number_text - 1
+                self.second_number.config(text=self.second_number_text)
+                print('gagné !!!!')
+                self.open_planning()
+            elif self.second_number_text == 0:
+                self.second_number_text = 9
+                self.second_number.config(text=self.second_number_text)
             else:
                 self.second_number_text = self.second_number_text - 1
                 self.second_number.config(text=self.second_number_text)
         else:
-            if self.third_number_text == 0:
-                self.third_number_text = 0
+            if self.first_number_text == 3 and self.second_number_text == 7 and self.third_number_text == 9 :
+                self.third_number_text = self.third_number_text - 1
+                self.third_number.config(text=self.third_number_text)
+                print('gagné !!!!')
+                self.open_planning()
+            elif self.third_number_text == 0:
+                self.third_number_text = 9
+                self.third_number.config(text=self.third_number_text)
             else:
                 self.third_number_text = self.third_number_text - 1
                 self.third_number.config(text=self.third_number_text)
