@@ -9,25 +9,51 @@ import fatse
 import indiceBDA
 
 # Crée une nouvelle fenêtre décrivant le scénario
+text2 = ("     Il semblerait que l'argent\n récolté lors du"
+        +" Gala de l'école\n a été volé et les soupçons se\n portent sur l'une des assos de\n    l'école...")
+text3 = ("            Je sais que tu as l'esprit vif,\n      c'est pourquoi je fais appel à toi.\n     J'ai besoin de quelqu'un en qui je\n      peux avoir"
+        +" confiance pour m'aider\n          à mener l'enquête...")
+text4 = ("     Je sais que c'est une tâche\n  difficile, mais je suis persuadé que\n    tu es capable de relever ce défi !")
+text_index = 0
+scenario_canvas = None
+text_id = None
+scenario_img = None
+next_button = None
+
+def update_text():
+        global next_button
+        global text_index
+        global text_id
+        global scenario_canvas
+        text_index += 1
+        if text_index==1:
+            scenario_canvas.itemconfigure(text_id, text=text2)
+        if text_index==2:
+            scenario_canvas.itemconfigure(text_id, text=text3)
+        if text_index==3:
+            scenario_canvas.itemconfigure(text_id, text=text4)
+            next_button.destroy()
+        if text_index==4:
+            scenario_canvas.itemconfigure(text_id, text=text3)
+
 def scenarioWindow():
+    global next_button
+    global scenario_canvas
+    global text_id
+    global scenario_img
     scenarioWin = tk.Toplevel(mainwindow)
     scenarioWin.title("Scénario")
-    scenarioWin.geometry("450x600")
-    scenarioLabel = tk.Label(scenarioWin, text="Salut ! Je suis confronté(e) à une situation \n"
-                                            +" délicate et je me permets de solliciter ton \n"
-                                            +" aide pour m'aider à résoudre cette affaire.\n"
-                                            +" Il semblerait que l'argent récolté lors du\n"
-                                            +" Gala de l'école a été volé et les soupçons se \n"
-                                            +"portent sur l'une des associations de l'école.\n"
-                                            +" Je sais que tu as l'esprit analytique et la\n"
-                                            +" capacité de résoudre les mystères, c'est \n"
-                                            +"pourquoi je fais appel à toi. J'ai besoin \n"
-                                            +"de quelqu'un en qui je peux avoir \n"
-                                            +"confiance pour m'aider à mener l'enquête et \n"
-                                            +"identifier les responsables de ce vol. Je \n"
-                                            +"sais que c'est une tâche difficile, mais je suis \n"
-                                            +"persuadé(e) que tu es capable de relever ce défi.",font=("Verdana",12))
-    scenarioLabel.pack()
+    scenarioWin.geometry("600x600")
+    scenario_canvas = tk.Canvas(scenarioWin, width=600, height=600)
+    scenario_canvas.pack(fill="both",expand=True)
+    scenario_img = ImageTk.PhotoImage(Image.open("student.png"))
+    scenario_canvas.create_image(0,0,image=scenario_img,anchor="nw")
+    global text_id
+    text_id = scenario_canvas.create_text(480,80,text=("     Salut ! Je suis confronté à\nune situation délicate et je me\n permets de solliciter ton"
+        +" aide\n pour m'aider à résoudre cette\n     affaire !"))
+    next_button = tk.Button(scenarioWin, text='>', command=update_text)
+    next_button_window = scenario_canvas.create_window(550,120,anchor="nw", window=next_button)
+
 
 new_img = None
 
@@ -236,8 +262,8 @@ def button_style_doors(button,font_size):
 start_button = tk.Button(mainwindow, text="START", **button_style, command=startGame)
 start_button_window = start_canvas.create_window(540,140,anchor="nw", window=start_button)
 
-timer_text = start_canvas.create_text(700,20, text='60:00',anchor="nw",fill="white",font=("Helvetica",20, "bold"))
-countdown_time = 10
+timer_text = start_canvas.create_text(700,20, text='30:00',anchor="nw",fill="white",font=("Helvetica",20, "bold"))
+countdown_time = 1800
 
 def createMenu():
     menu=tk.Menu(mainwindow)
