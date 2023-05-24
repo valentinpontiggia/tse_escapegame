@@ -67,9 +67,20 @@ def startGame():
             # Schedule the function to be called again after 1 second
             countdown_time -= 1
             top_canvas.after(1000, update_timer)
+        if countdown_time == 0:
+            for widgets in mainwindow.winfo_children():
+                widgets.destroy()
+                loose_canvas = tk.Canvas(mainwindow,width=800,height=600)
+                loose_canvas.pack(fill="both", expand=True)
+                loose_canvas.canva = loose_canvas
+                loose_img = ImageTk.PhotoImage(Image.open("thief.png"))
+                loose_img.img = loose_img
+                loose_canvas.create_image(80,0,image=loose_img,anchor="nw")
+                loose_canvas.create_text(400,360,text="Le voleur a réussi à s'enfuir... Il va pouvoir se la couler\ndouce pendant que les assos de TSE devront se\ndémener pour renflouer les caisses récemment vidées...",font=("Verdana",12, "bold"),fill="gold")
+                
     
     update_timer()
-    new_canvas.create_text(400,460,text="Vous voici dans le couloir\n des associations. Commencez à\n enquêter en choisissant dans \nquelle association vous souhaitez\n récolter des indices")
+    new_canvas.create_text(412,455,text="Vous voici dans le couloir des\nassociations. Commencez à\nenquêter en choisissant dans \nquelle association vous sou-\nhaitez récolter des indices",fill="#902038",font=("Verdana",9))
     
     button1 = tk.Button(mainwindow, text="BDE", command = swapToBg1)
     button_style_doors(button1,10)
@@ -226,7 +237,7 @@ start_button = tk.Button(mainwindow, text="START", **button_style, command=start
 start_button_window = start_canvas.create_window(540,140,anchor="nw", window=start_button)
 
 timer_text = start_canvas.create_text(700,20, text='60:00',anchor="nw",fill="white",font=("Helvetica",20, "bold"))
-countdown_time = 3600
+countdown_time = 10
 
 def createMenu():
     menu=tk.Menu(mainwindow)
