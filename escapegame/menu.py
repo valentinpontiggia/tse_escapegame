@@ -52,7 +52,7 @@ def scenarioWindow():
     text_id = scenario_canvas.create_text(480,80,text=("     Salut ! Je suis confronté à\nune situation délicate et je me\n permets de solliciter ton"
         +" aide\n pour m'aider à résoudre cette\n     affaire !"))
     next_button = tk.Button(scenarioWin, text='>', command=update_text)
-    next_button_window = scenario_canvas.create_window(550,120,anchor="nw", window=next_button)
+    next_button_window = scenario_canvas.create_window(530,108,anchor="nw", window=next_button)
 
 
 new_img = None
