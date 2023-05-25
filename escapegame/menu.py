@@ -18,6 +18,7 @@ text_index = 0
 scenario_canvas = None
 text_id = None
 scenario_img = None
+apropos_img = None
 next_button = None
 
 def update_text():
@@ -33,6 +34,7 @@ def update_text():
         if text_index==3:
             scenario_canvas.itemconfigure(text_id, text=text4)
             next_button.destroy()
+            text_index = 0
         if text_index==4:
             scenario_canvas.itemconfigure(text_id, text=text3)
 
@@ -54,6 +56,17 @@ def scenarioWindow():
     next_button = tk.Button(scenarioWin, text='>', command=update_text)
     next_button_window = scenario_canvas.create_window(530,108,anchor="nw", window=next_button)
 
+def aProposWindow():
+    global apropos_img
+    aProposWin = tk.Toplevel(mainwindow)
+    aProposWin.title("A propos")
+    aProposWin.geometry("463x260")
+    apropos_canvas = tk.Canvas(aProposWin, width=463, height=260)
+    apropos_canvas.pack(fill="both",expand=True)
+    apropos_img = ImageTk.PhotoImage(Image.open("bg_images/apropos.jpg"))
+    apropos_canvas.create_image(0,0,image=apropos_img,anchor="nw")
+    textapropos = tk.Label(aProposWin,text="Cette application a été créée dans le but du projet de classification d'images de FISE2 de Télécom Saint-Etienne.\n Contributeurs :\n - Lilou Tisserand\n - Gaëlle Quillaud\n - Chloé Davoine\n - Elie Cormier\n - Valentin Pontiggia \n\nMerci à Anne-Claire Legrand pour ses précieux conseils tout au long du projet",justify="left",wraplength=400, bg="#D4EAF8")
+    textapropos.place(x=50,y=50)
 
 new_img = None
 
@@ -269,7 +282,7 @@ def createMenu():
     menu=tk.Menu(mainwindow)
     about=tk.Menu(menu,tearoff=0)
     about.add_command(label="Scénario",command=scenarioWindow,activebackground="grey")
-    about.add_command(label="A propos",command=scenarioWindow,activebackground="grey")
+    about.add_command(label="A propos",command=aProposWindow,activebackground="grey")
     menu.add_cascade(label="Contexte", menu=about)
 
     indices=tk.Menu(menu,tearoff=0)
