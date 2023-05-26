@@ -5,6 +5,7 @@ import glob
 import os
 import seaborn as sns
 import matplotlib.pyplot as plt
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
@@ -15,6 +16,7 @@ class ImageClassifier:
     def __init__(self):
         self.scaler = StandardScaler()
         self.classifier = LinearSVC()
+        #self.classifier = KNeighborsClassifier(n_neighbors=2)
 
     def swain_ballard_histogram(self, image):
         hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
@@ -71,7 +73,7 @@ class ImageClassifier:
         print("Confusion matrix : ")
         print(cf_matrix)
         plt.figure(figsize=(8, 6))
-        sns.heatmap(cf_matrix/np.sum(cf_matrix), annot=True, fmt='.2%', cmap='Blues')
+        sns.heatmap(cf_matrix/np.sum(cf_matrix), annot=True, fmt='.2%', cmap='Oranges')
         plt.show()
         print("Classication report : ")
         print(classification_report(y_test, y_pred))

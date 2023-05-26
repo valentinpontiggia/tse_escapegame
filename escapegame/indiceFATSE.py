@@ -4,7 +4,6 @@ from PIL import Image, ImageTk
 class FATSEClue:
     def __init__(self, mainWindow):
         self.mainWindow = mainWindow
-
         self.canvas = tk.Canvas(self.mainWindow, width=800, height=550)
         self.canvas.pack(side="bottom")
         # Toujours ajouter une référence au background pour éviter qu'elle soit détruite
