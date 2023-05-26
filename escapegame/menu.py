@@ -7,6 +7,8 @@ import bda
 import bds
 import fatse
 import indiceBDA
+import indiceFATSE
+import indiceBDS
 
 # Crée une nouvelle fenêtre décrivant le scénario
 text2 = ("     Il semblerait que l'argent\n récolté lors du"
@@ -209,6 +211,26 @@ def swapToIndBDA():
                 button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
                 room = indiceBDA.BDAClue(mainwindow)
 
+def swapToIndFATSE():
+    for widgets in mainwindow.winfo_children():
+        if isinstance(widgets, tk.Canvas):
+            if widgets.winfo_name() != "timer":
+                widgets.destroy()
+            else :
+                buttonBack = tk.Button(mainwindow, text="Back", **button_style, command = back)
+                button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
+                room = indiceFATSE.FATSEClue(mainwindow)
+
+def swapToIndBDS():
+    for widgets in mainwindow.winfo_children():
+        if isinstance(widgets, tk.Canvas):
+            if widgets.winfo_name() != "timer":
+                widgets.destroy()
+            else :
+                buttonBack = tk.Button(mainwindow, text="Back", **button_style, command = back)
+                button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
+                room = indiceBDS.BDSClue(mainwindow)
+
 def back():
     for widgets in mainwindow.winfo_children():
       if isinstance(widgets, tk.Canvas):
@@ -287,8 +309,9 @@ def createMenu():
 
     indices=tk.Menu(menu,tearoff=0)
     indices.add_command(label="Enigme BDA", command=swapToIndBDA)
-    indices.add_command(label="Enigme 2", command=None)
-    indices.add_command(label="Enigme 3", command=None)
+    indices.add_command(label="Enigme FATSE", command=swapToIndFATSE)
+    indices.add_command(label="Enigme BDS", command=swapToIndBDS)
+    indices.add_command(label="Enigme BDE", command=None)
     menu.add_cascade(label="Indice",menu=indices)
 
     options=tk.Menu(menu,tearoff=0)
