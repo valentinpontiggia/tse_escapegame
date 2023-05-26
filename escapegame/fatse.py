@@ -1,7 +1,7 @@
 import tkinter as tk
 from PIL import ImageTk, Image, ImageDraw
 from tkinter import font
-import pyglet, os
+#import pyglet, os
 #from tkmacosx import Button
 
 class FATSE:
@@ -33,7 +33,7 @@ class FATSE:
         self.bgimg.img = self.bgimg
         self.canvas.create_image(0,0,image=self.bgimg,anchor="nw")
         
-        pyglet.font.add_file('bg_images/DS-DIGIB.TTF')
+        #pyglet.font.add_file('bg_images/DS-DIGIB.TTF')
         #custom_font = font.Font(family="DS-DIGIB", file="bg_images/DS-DIGIB.TTF")
 
         self.first_number_text = 0
