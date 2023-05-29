@@ -24,6 +24,7 @@ text_id = None
 scenario_img = None
 apropos_img = None
 next_button = None
+pause = False
 
 def update_text():
         global next_button
@@ -100,8 +101,8 @@ def startGame():
     timer_text = top_canvas.create_text(700,0, text='60:00',anchor="nw",fill="darkblue",font=("Helvetica",20, "bold"),tags=("timer"))
     
     play_music("musics/musicCouloir.mp3")
-    buttonPause = tk.Button(mainwindow, text="⏸", **button_style, command = pause_music)
-    buttonPauseWindow = top_canvas.create_window(40,0,anchor="nw", window=buttonPause)
+    buttonPause = tk.Button(mainwindow, text="⏯", fg= "#902038",   font = ("Verdana", 12),  bd= 3, relief= "ridge", command=pause_music)
+    buttonPauseWindow = top_canvas.create_window(630,0,anchor="nw", window=buttonPause)
     
 
     def update_timer():
@@ -158,7 +159,13 @@ def play_music(musicFile):
     pygame.mixer.music.play()
     
 def pause_music():
-    pygame.mixer.music.pause()
+    global pause
+    if pause == False:
+        pygame.mixer.music.pause()
+        pause = True
+    else:
+        pygame.mixer.music.unpause()
+        pause = False
 
 def startCamera():
     camWindow = tk.Toplevel(mainwindow)
@@ -294,7 +301,7 @@ for x in range(len(rulestext)+1):
 
 # Style des boutons
 button_style = {
-    "fg": "#902038",     # Couleur du texte blanc
+    "fg": "#902038",     # Couleur du texte
     "font": ("Verdana", 14, "bold"),   # Police en gras, taille 14
     "bd": 3,           # Largeur de la bordure de 3 pixels
     "relief": "ridge", # Type de bordure en relief
