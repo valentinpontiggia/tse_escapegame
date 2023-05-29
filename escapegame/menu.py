@@ -25,6 +25,7 @@ scenario_img = None
 apropos_img = None
 next_button = None
 pause = False
+timer_paused = False
 
 def update_text():
         global next_button
@@ -101,31 +102,30 @@ def startGame():
     timer_text = top_canvas.create_text(700,0, text='60:00',anchor="nw",fill="darkblue",font=("Helvetica",20, "bold"),tags=("timer"))
     
     play_music("musics/musicCouloir.mp3")
-    buttonPause = tk.Button(mainwindow, text="⏯", fg= "#902038",   font = ("Verdana", 12),  bd= 3, relief= "ridge", command=pause_music)
-    buttonPauseWindow = top_canvas.create_window(630,0,anchor="nw", window=buttonPause)
     
 
     def update_timer():
-        global countdown_time
-        minutes, seconds = divmod(countdown_time, 60)
-        # Formate l'heure en MM:SS
-        timer_hour = f"{minutes:02d}:{seconds:02d}"
-        top_canvas.itemconfig(timer_text, text=timer_hour)
-        if countdown_time > 0:
-            # Rappelle la fonction au bout d'une seconde.
-            countdown_time -= 1
-            top_canvas.after(1000, update_timer)
-        if countdown_time == 0:
-            for widgets in mainwindow.winfo_children():
-                widgets.destroy()
-                loose_canvas = tk.Canvas(mainwindow,width=800,height=600)
-                loose_canvas.pack(fill="both", expand=True)
-                loose_canvas.canva = loose_canvas
-                loose_img = ImageTk.PhotoImage(Image.open("thief.png"))
-                loose_img.img = loose_img
-                loose_canvas.create_image(80,0,image=loose_img,anchor="nw")
-                loose_canvas.create_text(400,360,text="Le voleur a réussi à s'enfuir... Il va pouvoir se la couler\ndouce pendant que les assos de TSE devront se\ndémener pour renflouer les caisses récemment vidées...",font=("Verdana",12, "bold"),fill="gold")
-                
+        global countdown_time, timer_paused
+        if not timer_paused:
+            minutes, seconds = divmod(countdown_time, 60)
+            # Formate l'heure en MM:SS
+            timer_hour = f"{minutes:02d}:{seconds:02d}"
+            top_canvas.itemconfig(timer_text, text=timer_hour)
+            if countdown_time > 0:
+                # Rappelle la fonction au bout d'une seconde.
+                countdown_time -= 1
+                top_canvas.after(1000, update_timer)
+            if countdown_time == 0:
+                for widgets in mainwindow.winfo_children():
+                    widgets.destroy()
+                    loose_canvas = tk.Canvas(mainwindow,width=800,height=600)
+                    loose_canvas.pack(fill="both", expand=True)
+                    loose_canvas.canva = loose_canvas
+                    loose_img = ImageTk.PhotoImage(Image.open("thief.png"))
+                    loose_img.img = loose_img
+                    loose_canvas.create_image(80,0,image=loose_img,anchor="nw")
+                    loose_canvas.create_text(400,360,text="Le voleur a réussi à s'enfuir... Il va pouvoir se la couler\ndouce pendant que les assos de TSE devront se\ndémener pour renflouer les caisses récemment vidées...",font=("Verdana",12, "bold"),fill="gold")
+                    
     
     update_timer()
     new_canvas.create_text(412,455,text="Vous voici dans le couloir des\nassociations. Commencez à\nenquêter en choisissant dans \nquelle association vous sou-\nhaitez récolter des indices",fill="#902038",font=("Verdana",9))
@@ -152,20 +152,22 @@ def startGame():
 
     buttonEnd = tk.Button(mainwindow, text="Accuser", **button_style, command = startCamera)
     buttonEnd_window = new_canvas.create_window(350,350,anchor="nw", window=buttonEnd)
+    
+    def pause():
+        global timer_paused
+        if not timer_paused :
+            timer_paused = True
+        else : 
+            timer_paused = False
+            update_timer()
+            
+    buttonPause = tk.Button(mainwindow, text="⏯", fg= "#902038",   font = ("Verdana", 12),  bd= 3, relief= "ridge", command=pause)
+    buttonPauseWindow = top_canvas.create_window(630,0,anchor="nw", window=buttonPause)
 
 def play_music(musicFile):
     pygame.mixer.init()
     pygame.mixer.music.load(musicFile) # Ajoutez votre propre fichier de musique ici
     pygame.mixer.music.play()
-    
-def pause_music():
-    global pause
-    if pause == False:
-        pygame.mixer.music.pause()
-        pause = True
-    else:
-        pygame.mixer.music.unpause()
-        pause = False
 
 def startCamera():
     camWindow = tk.Toplevel(mainwindow)
@@ -273,6 +275,15 @@ def back():
             if widgets.winfo_name() != "timer":
                 widgets.destroy()
     startGame()
+
+def pause_music():
+    global pause
+    if pause == False:
+        pygame.mixer.music.pause()
+        pause = True
+    else:
+        pygame.mixer.music.unpause()
+        pause = False
     
 # Programme principal : fenêtre d'accueil
 mainwindow=tk.Tk()
@@ -352,7 +363,7 @@ def createMenu():
 
     options=tk.Menu(menu,tearoff=0)
     options.add_command(label="Chrono",command=None)
-    options.add_command(label="Musique",command=None)
+    options.add_command(label="Musique On/Off",command=pause_music)
     menu.add_cascade(label="Options",menu=options)
 
     close=tk.Menu(menu,tearoff=0)
