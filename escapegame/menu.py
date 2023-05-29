@@ -1,5 +1,6 @@
 import tkinter as tk
 from PIL import ImageTk, Image, ImageDraw
+import pygame
 import camera
 import bde
 import inspire
@@ -98,6 +99,10 @@ def startGame():
     
     timer_text = top_canvas.create_text(700,0, text='60:00',anchor="nw",fill="darkblue",font=("Helvetica",20, "bold"),tags=("timer"))
     
+    play_music("musics/musicCouloir.mp3")
+    buttonPause = tk.Button(mainwindow, text="⏸", **button_style, command = pause_music)
+    buttonPauseWindow = top_canvas.create_window(40,0,anchor="nw", window=buttonPause)
+    
 
     def update_timer():
         global countdown_time
@@ -147,6 +152,14 @@ def startGame():
     buttonEnd = tk.Button(mainwindow, text="Accuser", **button_style, command = startCamera)
     buttonEnd_window = new_canvas.create_window(350,350,anchor="nw", window=buttonEnd)
 
+def play_music(musicFile):
+    pygame.mixer.init()
+    pygame.mixer.music.load(musicFile) # Ajoutez votre propre fichier de musique ici
+    pygame.mixer.music.play()
+    
+def pause_music():
+    pygame.mixer.music.pause()
+
 def startCamera():
     camWindow = tk.Toplevel(mainwindow)
     camWindow.title("Caméra")
@@ -161,6 +174,7 @@ def swapToBg1():
             else :
                 buttonBack = tk.Button(mainwindow, text="Back", **button_style, command = back)
                 button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
+                play_music("musics/musicBDE.mp3")
                 room = bde.Room(mainwindow)
                 
 def swapToBg2():
@@ -171,6 +185,7 @@ def swapToBg2():
             else :
                 buttonBack = tk.Button(mainwindow, text="Back", **button_style, command = back)
                 button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
+                play_music("musics/musicBDS.mp3")
                 room = bds.BDS(mainwindow)
 def swapToBg3():
     for widgets in mainwindow.winfo_children():
@@ -180,6 +195,7 @@ def swapToBg3():
             else :
                 buttonBack = tk.Button(mainwindow, text="Back", **button_style, command = back)
                 button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
+                play_music("musics/musicBDA.mp3")
                 room = bda.BDARiddle(mainwindow)
     
 def swapToBg4():
@@ -190,6 +206,7 @@ def swapToBg4():
             else :
                 buttonBack = tk.Button(mainwindow, text="Back", **button_style, command = back)
                 button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
+                play_music("musics/musicInspire.mp3")
                 room = inspire.InspireRiddle(mainwindow)
 
 def swapToBg5():
@@ -200,6 +217,7 @@ def swapToBg5():
             else :
                 buttonBack = tk.Button(mainwindow, text="Back", **button_style, command = back)
                 button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
+                play_music("musics/musicFATSE.mp3")
                 room = fatse.FATSE(mainwindow)
 
 def swapToIndBDA():
