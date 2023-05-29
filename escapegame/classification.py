@@ -87,3 +87,4 @@ class ImageClassifier:
         features = self.scaler.transform(features)
         predicted_class = self.classifier.predict(features)
         print(f"Classe prédite pour l'image {image_path}: {predicted_class[0]}")
+        return predicted_class[0]

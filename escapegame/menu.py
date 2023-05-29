@@ -8,6 +8,7 @@ import bds
 import fatse
 import indiceBDA
 import indiceFATSE
+import indiceBDE
 import indiceBDS
 
 # Crée une nouvelle fenêtre décrivant le scénario
@@ -101,11 +102,11 @@ def startGame():
     def update_timer():
         global countdown_time
         minutes, seconds = divmod(countdown_time, 60)
-        # Format the time as MM:SS
+        # Formate l'heure en MM:SS
         timer_hour = f"{minutes:02d}:{seconds:02d}"
         top_canvas.itemconfig(timer_text, text=timer_hour)
         if countdown_time > 0:
-            # Schedule the function to be called again after 1 second
+            # Rappelle la fonction au bout d'une seconde.
             countdown_time -= 1
             top_canvas.after(1000, update_timer)
         if countdown_time == 0:
@@ -150,7 +151,7 @@ def startCamera():
     camWindow = tk.Toplevel(mainwindow)
     camWindow.title("Caméra")
     camWindow.geometry("450x600")
-    cam = camera.CameraApp(camWindow)
+    cam = camera.CameraApp(camWindow,mainwindow)
     
 def swapToBg1():
     for widgets in mainwindow.winfo_children():
@@ -230,6 +231,16 @@ def swapToIndBDS():
                 buttonBack = tk.Button(mainwindow, text="Back", **button_style, command = back)
                 button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
                 room = indiceBDS.BDSClue(mainwindow)
+                
+def swapToIndBDE():
+    for widgets in mainwindow.winfo_children():
+        if isinstance(widgets, tk.Canvas):
+            if widgets.winfo_name() != "timer":
+                widgets.destroy()
+            else :
+                buttonBack = tk.Button(mainwindow, text="Back", **button_style, command = back)
+                button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
+                room = indiceBDE.BDEClue(mainwindow)
 
 def back():
     for widgets in mainwindow.winfo_children():
@@ -311,7 +322,7 @@ def createMenu():
     indices.add_command(label="Enigme BDA", command=swapToIndBDA)
     indices.add_command(label="Enigme FATSE", command=swapToIndFATSE)
     indices.add_command(label="Enigme BDS", command=swapToIndBDS)
-    indices.add_command(label="Enigme BDE", command=None)
+    indices.add_command(label="Enigme BDE", command=swapToIndBDE)
     menu.add_cascade(label="Indice",menu=indices)
 
     options=tk.Menu(menu,tearoff=0)

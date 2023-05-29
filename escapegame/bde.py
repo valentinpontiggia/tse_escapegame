@@ -103,7 +103,15 @@ class Room:
     def check(self):
         if self.btn_color1.cget('bg')=="orange" and self.btn_color2.cget('bg')=="purple" and self.btn_color3.cget('bg')=="blue" and self.btn_color4.cget('bg')=="purple":
             self.canvas.destroy()
-            print("ajouter photo de gaelle")
+            self.canvaas = tk.Canvas(self.master,width=800,height=550)
+            self.canvaas.pack(side="bottom")
+            # Toujours ajouter une référence au background pour éviter qu'elle soit détruite
+            self.canvaas.canva = self.canvaas
+        
+            self.bgbdeimg = ImageTk.PhotoImage(Image.open("bde_dodo.jpg"))
+            self.bgbdeimg.img = self.bgbdeimg
+            self.canvaas.create_image(50,30,image=self.bgbdeimg,anchor="nw")
+            self.canvaas.create_text(400,80,text="Une photo apparait...")
         else:
             self.canvas.create_text(550,250,text="Raté, essaye encore !")
         
