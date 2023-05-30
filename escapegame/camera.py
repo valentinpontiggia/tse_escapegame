@@ -48,8 +48,7 @@ class CameraApp:
 # une image de victoire, soit une image de défaite, avec un message approprié.     
     def classify(self):
         image_classifier = ImageClassifier()
-        # Si vous voulez utiliser le classifieur2, décommentez la ligne suivante et commentez celle ci-dessus
-        #image_classifier = ImageClassifier2()
+        # Si vous voulez utiliser le classifieur2, ajoutez un '2' : image_classifier = ImageClassifier2()
         classe = image_classifier.predict_single_image("reponse.jpg")
         for widgets in self.master2.winfo_children():
             if isinstance(widgets, tk.Canvas):

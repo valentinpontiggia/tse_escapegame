@@ -17,7 +17,7 @@ class ImageClassifier:
         self.scaler = StandardScaler()
         self.classifier = LinearSVC()
         # Si vous voulez utiliser le classifieur des K plus proches voisins, décommentez
-        # la ligne ci-dessous.
+        # la ligne ci-dessous et commentez la ligne ci-dessus.
         #self.classifier = KNeighborsClassifier(n_neighbors=2)
 
 

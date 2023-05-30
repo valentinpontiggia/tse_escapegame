@@ -16,3 +16,5 @@ scikit-learn
 keyboard
 
 seaborn
+
+skimage
