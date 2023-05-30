@@ -12,7 +12,8 @@ import indiceFATSE
 import indiceBDE
 import indiceBDS
 
-# Crée une nouvelle fenêtre décrivant le scénario
+###################### Onglet Contexte #######################
+############### Définition  du scénario ######################
 text2 = ("     Il semblerait que l'argent\n récolté lors du"
         +" Gala de l'école\n a été volé et les soupçons se\n portent sur l'une des assos de\n    l'école...")
 text3 = ("            Je sais que tu as l'esprit vif,\n      c'est pourquoi je fais appel à toi.\n     J'ai besoin de quelqu'un en qui je\n      peux avoir"
@@ -62,6 +63,8 @@ def scenarioWindow():
     next_button = tk.Button(scenarioWin, text='>', command=update_text)
     next_button_window = scenario_canvas.create_window(530,108,anchor="nw", window=next_button)
 
+
+############### A propos ###################
 def aProposWindow():
     global apropos_img
     aProposWin = tk.Toplevel(mainwindow)
@@ -76,6 +79,7 @@ def aProposWindow():
 
 new_img = None
 
+##########################################################################################################
 # Change de canva au click du bouton start, active le chrono, et propose 4 assos pour commencer à enquêter
 
 def startGame():
@@ -94,16 +98,19 @@ def startGame():
     # Toujours ajouter une référence au background pour éviter qu'elle soit détruite
     top_canvas.canva = top_canvas
 
-
+    # Définition de l'image de fond
     new_img = ImageTk.PhotoImage(Image.open("bg_images/couloir.jpg"))
     new_img.img = new_img
     new_canvas.create_image(0,0,image=new_img,anchor="nw")
     
+    # Définition du chronomètre
     timer_text = top_canvas.create_text(700,0, text='60:00',anchor="nw",fill="darkblue",font=("Helvetica",20, "bold"),tags=("timer"))
     
+    # Définition de la musique
     play_music("musics/musicCouloir.mp3")
     
 
+    ############# Mise à jour du chrono #############
     def update_timer():
         global countdown_time, timer_paused
         if not timer_paused:
@@ -116,6 +123,7 @@ def startGame():
                 countdown_time -= 1
                 top_canvas.after(1000, update_timer)
             if countdown_time == 0:
+                # Quand le compteur tombe à 0, annonce disant que le joueur à perdu
                 for widgets in mainwindow.winfo_children():
                     widgets.destroy()
                     loose_canvas = tk.Canvas(mainwindow,width=800,height=600)
@@ -126,7 +134,7 @@ def startGame():
                     loose_canvas.create_image(80,0,image=loose_img,anchor="nw")
                     loose_canvas.create_text(400,360,text="Le voleur a réussi à s'enfuir... Il va pouvoir se la couler\ndouce pendant que les assos de TSE devront se\ndémener pour renflouer les caisses récemment vidées...",font=("Verdana",12, "bold"),fill="gold")
                     
-    
+    # Mise à jour du chrono et affichage du couloir des associations
     update_timer()
     new_canvas.create_text(412,455,text="Vous voici dans le couloir des\nassociations. Commencez à\nenquêter en choisissant dans \nquelle association vous sou-\nhaitez récolter des indices",fill="#902038",font=("Verdana",9))
     
@@ -153,6 +161,7 @@ def startGame():
     buttonEnd = tk.Button(mainwindow, text="Accuser", **button_style, command = startCamera)
     buttonEnd_window = new_canvas.create_window(350,350,anchor="nw", window=buttonEnd)
     
+    # Mode pause pour le chronomètre
     def pause():
         global timer_paused
         if not timer_paused :
@@ -164,18 +173,22 @@ def startGame():
     buttonPause = tk.Button(mainwindow, text="⏯", fg= "#902038",   font = ("Verdana", 12),  bd= 3, relief= "ridge", command=pause)
     buttonPauseWindow = top_canvas.create_window(630,0,anchor="nw", window=buttonPause)
 
+# Définition de la fonction musique prennant la musique souhaité en argument
 def play_music(musicFile):
     pygame.mixer.init()
     pygame.mixer.music.load("musics/porteSound.wav") # Ajoutez votre propre fichier de musique ici
     pygame.mixer.music.play()
     pygame.mixer.music.queue(musicFile)
 
+# Affichage de la caméra --> voir le fichier camera.py
 def startCamera():
     camWindow = tk.Toplevel(mainwindow)
     camWindow.title("Caméra")
     camWindow.geometry("450x600")
     cam = camera.CameraApp(camWindow,mainwindow)
-    
+
+#######################Entrer dans les différentes salles ####################
+# Entrer dans le BDE    
 def swapToBg1():
     for widgets in mainwindow.winfo_children():
         if isinstance(widgets, tk.Canvas):
@@ -186,7 +199,8 @@ def swapToBg1():
                 button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
                 play_music("musics/musicBDE.mp3")
                 room = bde.Room(mainwindow)
-                
+
+# Entrer dans le BDS                  
 def swapToBg2():
     for widgets in mainwindow.winfo_children():
       if isinstance(widgets, tk.Canvas):
@@ -197,6 +211,8 @@ def swapToBg2():
                 button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
                 play_music("musics/musicBDS.mp3")
                 room = bds.BDS(mainwindow)
+
+# Entrer dans le BDA  
 def swapToBg3():
     for widgets in mainwindow.winfo_children():
       if isinstance(widgets, tk.Canvas):
@@ -207,7 +223,8 @@ def swapToBg3():
                 button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
                 play_music("musics/musicBDA.mp3")
                 room = bda.BDARiddle(mainwindow)
-    
+
+# Entrer chez Inspire      
 def swapToBg4():
     for widgets in mainwindow.winfo_children():
       if isinstance(widgets, tk.Canvas):
@@ -219,6 +236,7 @@ def swapToBg4():
                 play_music("musics/musicInspire.mp3")
                 room = inspire.InspireRiddle(mainwindow)
 
+# Entrer dans la FATSE  
 def swapToBg5():
     for widgets in mainwindow.winfo_children():
       if isinstance(widgets, tk.Canvas):
@@ -230,6 +248,9 @@ def swapToBg5():
                 play_music("musics/musicFATSE.mp3")
                 room = fatse.FATSE(mainwindow)
 
+
+########################### Définition des indices ##############################################
+# Indices du BDA
 def swapToIndBDA():
     for widgets in mainwindow.winfo_children():
         if isinstance(widgets, tk.Canvas):
@@ -240,6 +261,7 @@ def swapToIndBDA():
                 button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
                 room = indiceBDA.BDAClue(mainwindow)
 
+# Indices de la FATSE
 def swapToIndFATSE():
     for widgets in mainwindow.winfo_children():
         if isinstance(widgets, tk.Canvas):
@@ -250,6 +272,7 @@ def swapToIndFATSE():
                 button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
                 room = indiceFATSE.FATSEClue(mainwindow)
 
+# Indice du BDS
 def swapToIndBDS():
     for widgets in mainwindow.winfo_children():
         if isinstance(widgets, tk.Canvas):
@@ -259,7 +282,8 @@ def swapToIndBDS():
                 buttonBack = tk.Button(mainwindow, text="Back", **button_style, command = back)
                 button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
                 room = indiceBDS.BDSClue(mainwindow)
-                
+
+# Indice du BDE                
 def swapToIndBDE():
     for widgets in mainwindow.winfo_children():
         if isinstance(widgets, tk.Canvas):
@@ -270,6 +294,7 @@ def swapToIndBDE():
                 button4_window = widgets.create_window(40,0,anchor="nw", window=buttonBack)
                 room = indiceBDE.BDEClue(mainwindow)
 
+# Fonction retour au couloir des associations
 def back():
     for widgets in mainwindow.winfo_children():
       if isinstance(widgets, tk.Canvas):
@@ -277,6 +302,7 @@ def back():
                 widgets.destroy()
     startGame()
 
+# Mettre la musique en pause
 def pause_music():
     global pause
     if pause == False:
@@ -285,19 +311,22 @@ def pause_music():
     else:
         pygame.mixer.music.unpause()
         pause = False
-    
-# Programme principal : fenêtre d'accueil
+
+####################################################################################    
+#################### Programme principal : fenêtre d'accueil #######################
 mainwindow=tk.Tk()
 mainwindow.title("Escape Game")
 mainwindow.geometry("800x600")
 
+# Taille de la fenêtre
 start_canvas = tk.Canvas(mainwindow,width=800,height=600)
 start_canvas.pack(fill="both", expand=True)
 
+# Image de fond
 img = ImageTk.PhotoImage(Image.open("bg_images/bg.jpg"))
 start_canvas.create_image(-150,-100,image=img,anchor="nw")
 
-
+# Titre et définiton du scénario
 titre = start_canvas.create_text(400, 50, text="RACKE'TSE", font=("Verdana",20, "bold"),fill="darkblue")
 
 canvas_rulestext = start_canvas.create_text(100,140, text='',anchor="nw",fill="white")
@@ -311,7 +340,7 @@ for x in range(len(rulestext)+1):
     delay +=delta
 
 
-# Style des boutons
+###################### Style des boutons ######################
 button_style = {
     "fg": "#902038",     # Couleur du texte
     "font": ("Verdana", 14, "bold"),   # Police en gras, taille 14
@@ -325,7 +354,7 @@ button_style = {
     "cursor": "hand2"    # Curseur de souris en forme de main pour indiquer l'interactivité
 }
 
-# Style des boutons des portes
+###################### Style des boutons des portes ######################
 def button_style_doors(button,font_size):
     style = {
         "fg": "#902038",     # Couleur du texte blanc
@@ -341,13 +370,14 @@ def button_style_doors(button,font_size):
     }
     button.config(**style)
 
-# Création du bouton Start
+###################### Création du bouton Start ######################
 start_button = tk.Button(mainwindow, text="START", **button_style, command=startGame)
 start_button_window = start_canvas.create_window(540,140,anchor="nw", window=start_button)
 
 timer_text = start_canvas.create_text(700,20, text='30:00',anchor="nw",fill="white",font=("Helvetica",20, "bold"))
 countdown_time = 1800
 
+###################### Création du menu ######################
 def createMenu():
     menu=tk.Menu(mainwindow)
     about=tk.Menu(menu,tearoff=0)
