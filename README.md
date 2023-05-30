@@ -35,9 +35,16 @@ Cette application a été créée dans le but du projet de classification d'imag
 <!-- INSTALLATION -->
 ## Installation
 
-Pour installer toutes les dépendances nécessaires à l'exécution de l'application, vous n'avez qu'à exécuter cette ligne dans votre terminal :
+Pour installer toutes les dépendances nécessaires à l'exécution de l'application, vous n'avez qu'à exécuter ces lignes dans votre terminal :
 
-    pip install -r requirements.txt
+    pip install opencv-python
+    pip install pillow
+    pip install pygame
+    pip install pandas
+    pip install scikit-learn
+    pip install scikit-image
+    pip install seaborn
+    pip install keyboard
 
 
 <!-- UTILISATION -->
