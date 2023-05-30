@@ -14,9 +14,6 @@ class CameraApp:
 
         self.btn_capture = tk.Button(self.master, text="Capture", command=self.capture)
         self.btn_capture.pack()
-
-        self.btn_classify = tk.Button(self.master, text="Classifier", command=self.classify)
-        self.btn_classify.pack() 
         
         self.update_stream()
 
