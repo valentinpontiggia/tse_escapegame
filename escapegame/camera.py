@@ -12,7 +12,7 @@ class CameraApp:
         self.canvas = tk.Canvas(self.master, width=640, height=480)
         self.canvas.pack()
 
-        self.btn_capture = tk.Button(self.master, text="Capture", command=self.capture())
+        self.btn_capture = tk.Button(self.master, text="Capture", command=self.capture)
         self.btn_capture.pack()
 
         self.update_stream()
