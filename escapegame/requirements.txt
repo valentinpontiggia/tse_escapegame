@@ -12,3 +12,9 @@ pandas
 
 # Classification des réponses en bonnes ou mauvaises réponses à l'aide d'un modèle de classification
 scikit-learn
+
+keyboard
+
+seaborn
+
+skimage
