@@ -2,6 +2,7 @@ import cv2
 import tkinter as tk
 from PIL import Image, ImageTk
 from classification import ImageClassifier
+from classification2 import ImageClassifier2
 class CameraApp:
     def __init__(self, master,master2):
         self.master = master
@@ -16,6 +17,9 @@ class CameraApp:
 
         self.update_stream()
 
+# Cette méthode lit une image du flux vidéo de la caméra, la convertit de BGR à RGB 
+# (puisque OpenCV lit les images en BGR tandis que tkinter les attend en RGB), 
+# puis l'affiche sur le Canvas
     def update_stream(self):
         _, frame = self.camera.read()
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -25,6 +29,9 @@ class CameraApp:
         self.canvas.imgtk = imgtk
         self.master.after(10, self.update_stream)
 
+# Cette méthode est appelée lorsqu'on clique sur le bouton Capture. Elle capture une 
+# image à partir du flux de la caméra, la convertit de BGR à RGB, puis sauvegarde cette 
+# image dans un fichier nommé "reponse.jpg".
     def capture(self):
         self.btn_classify = tk.Button(self.master, text="Classifier", command=self.classify)
         self.btn_classify.pack()    
@@ -32,9 +39,17 @@ class CameraApp:
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         img = Image.fromarray(frame)
         img.save("reponse.jpg")
-        
+
+
+# Cette méthode est appelée lorsqu'on clique sur le bouton Classifier. Elle utilise 
+# ImageClassifier (ou ImageClassifier2 si vous la décommentez), pour prédire la 
+# classe de l'image récemment capturée et sauvegardée. En fonction du résultat de la 
+# classification, elle modifie l'affichage de la fenêtre principale pour afficher soit 
+# une image de victoire, soit une image de défaite, avec un message approprié.     
     def classify(self):
         image_classifier = ImageClassifier()
+        # Si vous voulez utiliser le classifieur2, décommentez la ligne suivante et commentez celle ci-dessus
+        #image_classifier = ImageClassifier2()
         classe = image_classifier.predict_single_image("reponse.jpg")
         for widgets in self.master2.winfo_children():
             if isinstance(widgets, tk.Canvas):
