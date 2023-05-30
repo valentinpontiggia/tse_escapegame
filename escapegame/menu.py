@@ -54,7 +54,7 @@ def scenarioWindow():
     scenarioWin.geometry("600x600")
     scenario_canvas = tk.Canvas(scenarioWin, width=600, height=600)
     scenario_canvas.pack(fill="both",expand=True)
-    scenario_img = ImageTk.PhotoImage(Image.open("student.png"))
+    scenario_img = ImageTk.PhotoImage(Image.open("bg_images/student.png"))
     scenario_canvas.create_image(0,0,image=scenario_img,anchor="nw")
     global text_id
     text_id = scenario_canvas.create_text(480,80,text=("     Salut ! Je suis confronté à\nune situation délicate et je me\n permets de solliciter ton"
@@ -95,7 +95,7 @@ def startGame():
     top_canvas.canva = top_canvas
 
 
-    new_img = ImageTk.PhotoImage(Image.open("couloir.jpg"))
+    new_img = ImageTk.PhotoImage(Image.open("bg_images/couloir.jpg"))
     new_img.img = new_img
     new_canvas.create_image(0,0,image=new_img,anchor="nw")
     
@@ -121,7 +121,7 @@ def startGame():
                     loose_canvas = tk.Canvas(mainwindow,width=800,height=600)
                     loose_canvas.pack(fill="both", expand=True)
                     loose_canvas.canva = loose_canvas
-                    loose_img = ImageTk.PhotoImage(Image.open("thief.png"))
+                    loose_img = ImageTk.PhotoImage(Image.open("bg_images/thief.png"))
                     loose_img.img = loose_img
                     loose_canvas.create_image(80,0,image=loose_img,anchor="nw")
                     loose_canvas.create_text(400,360,text="Le voleur a réussi à s'enfuir... Il va pouvoir se la couler\ndouce pendant que les assos de TSE devront se\ndémener pour renflouer les caisses récemment vidées...",font=("Verdana",12, "bold"),fill="gold")
@@ -166,8 +166,9 @@ def startGame():
 
 def play_music(musicFile):
     pygame.mixer.init()
-    pygame.mixer.music.load(musicFile) # Ajoutez votre propre fichier de musique ici
+    pygame.mixer.music.load("musics/porteSound.wav") # Ajoutez votre propre fichier de musique ici
     pygame.mixer.music.play()
+    pygame.mixer.music.queue(musicFile)
 
 def startCamera():
     camWindow = tk.Toplevel(mainwindow)
@@ -293,7 +294,7 @@ mainwindow.geometry("800x600")
 start_canvas = tk.Canvas(mainwindow,width=800,height=600)
 start_canvas.pack(fill="both", expand=True)
 
-img = ImageTk.PhotoImage(Image.open("bg.jpg"))
+img = ImageTk.PhotoImage(Image.open("bg_images/bg.jpg"))
 start_canvas.create_image(-150,-100,image=img,anchor="nw")
 
 

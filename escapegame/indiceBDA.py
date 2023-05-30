@@ -27,7 +27,7 @@ class BDAClue:
 
     def clue2(self):
         self.clue2_button.destroy()
-        self.new_img = ImageTk.PhotoImage(Image.open("horloge.jpg"))
+        self.new_img = ImageTk.PhotoImage(Image.open("bg_images/horloge.jpg"))
         self.new_img.img = self.new_img
         self.canvas.create_image(300,290,image=self.new_img,anchor="nw")
         self.canvas.pack(fill="both", expand=True)

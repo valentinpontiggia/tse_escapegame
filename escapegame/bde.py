@@ -10,7 +10,7 @@ class Room:
         # Toujours ajouter une référence au background pour éviter qu'elle soit détruite
         self.canvas.canva = self.canvas
         
-        self.bgimg = ImageTk.PhotoImage(Image.open("bg_bde.jpg"))
+        self.bgimg = ImageTk.PhotoImage(Image.open("bg_images/bg_bde.jpg"))
         self.bgimg.img = self.bgimg
         self.canvas.create_image(0,30,image=self.bgimg,anchor="nw")
 
@@ -26,7 +26,7 @@ class Room:
         # Toujours ajouter une référence au background pour éviter qu'elle soit détruite
         self.canvas.canva = self.canvas
         
-        self.bgimg = ImageTk.PhotoImage(Image.open("Mastermind.jpg"))
+        self.bgimg = ImageTk.PhotoImage(Image.open("bg_images/Mastermind.jpg"))
         self.bgimg.img = self.bgimg
         self.canvas.create_image(50,30,image=self.bgimg,anchor="nw")
         
@@ -108,7 +108,7 @@ class Room:
             # Toujours ajouter une référence au background pour éviter qu'elle soit détruite
             self.canvaas.canva = self.canvaas
         
-            self.bgbdeimg = ImageTk.PhotoImage(Image.open("bde_dodo.jpg"))
+            self.bgbdeimg = ImageTk.PhotoImage(Image.open("bg_images/bde_dodo.jpg"))
             self.bgbdeimg.img = self.bgbdeimg
             self.canvaas.create_image(50,30,image=self.bgbdeimg,anchor="nw")
             self.canvaas.create_text(400,80,text="Une photo apparait...")

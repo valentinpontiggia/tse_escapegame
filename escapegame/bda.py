@@ -10,7 +10,7 @@ class BDARiddle:
         # Toujours ajouter une référence au background pour éviter qu'elle soit détruite
         self.canvas.canva = self.canvas
 
-        self.new_img = ImageTk.PhotoImage(Image.open("bda.jpg"))
+        self.new_img = ImageTk.PhotoImage(Image.open("bg_images/bda.jpg"))
         self.new_img.img = self.new_img
         self.canvas.create_image(0,20,image=self.new_img,anchor="nw")
         self.canvas.pack(fill="both", expand=True)
