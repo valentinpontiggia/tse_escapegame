@@ -27,7 +27,7 @@ class BDS:
         # Toujours ajouter une référence au background pour éviter qu'elle soit détruite
         self.canvas.canva = self.canvas
         
-        self.bgimg = ImageTk.PhotoImage(Image.open("bg_images/nerdle_ordi.jpg").resize((750,550), Image.ANTIALIAS))
+        self.bgimg = ImageTk.PhotoImage(Image.open("bg_images/nerdle_ordi.jpg").resize((750,550), Image.LANCZOS))
         self.bgimg.img = self.bgimg
         self.canvas.create_image(25,0,image=self.bgimg,anchor="nw")
         
@@ -64,7 +64,7 @@ class BDS:
             # Toujours ajouter une référence au background pour éviter qu'elle soit détruite
             self.canvas.canva = self.canvas
 
-            self.bgimg = ImageTk.PhotoImage(Image.open("bg_images/nerdle_success.jpg").resize((750,550), Image.ANTIALIAS))
+            self.bgimg = ImageTk.PhotoImage(Image.open("bg_images/nerdle_success.jpg").resize((750,550), Image.LANCZOS))
             self.bgimg.img = self.bgimg
             self.canvas.create_image(25,0,image=self.bgimg,anchor="nw")
 

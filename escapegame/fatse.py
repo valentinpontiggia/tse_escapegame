@@ -13,7 +13,7 @@ class FATSE:
         # Toujours ajouter une référence au background pour éviter qu'elle soit détruite
         self.canvas.canva = self.canvas
 
-        self.bgimg = ImageTk.PhotoImage(Image.open("bg_images/fatse.jpg").resize((800,550), Image.ANTIALIAS))
+        self.bgimg = ImageTk.PhotoImage(Image.open("bg_images/fatse.jpg").resize((800,550), Image.LANCZOS))
         self.bgimg.img = self.bgimg
         self.canvas.create_image(0,-25,image=self.bgimg,anchor="nw")
 
@@ -28,7 +28,7 @@ class FATSE:
         # Toujours ajouter une référence au background pour éviter qu'elle soit détruite
         self.canvas.canva = self.canvas
         
-        self.bgimg = ImageTk.PhotoImage(Image.open("bg_images/code.png").resize((800,550), Image.ANTIALIAS))
+        self.bgimg = ImageTk.PhotoImage(Image.open("bg_images/code.png").resize((800,550), Image.LANCZOS))
         self.bgimg.img = self.bgimg
         self.canvas.create_image(0,0,image=self.bgimg,anchor="nw")
         
@@ -75,7 +75,7 @@ class FATSE:
         self.planning_canvas.canva = self.planning_canvas
 
         #self.planning_img = tk.PhotoImage(file="bg_images/planning_assos.jpg").subsample(2)
-        self.planning_img = ImageTk.PhotoImage(Image.open("bg_images/planning_assos.jpg").resize((450, 650)), Image.ANTIALIAS)
+        self.planning_img = ImageTk.PhotoImage(Image.open("bg_images/planning_assos.jpg").resize((450, 650)), Image.LANCZOS)
         self.planning_img.img = self.planning_img
         self.planning_canvas.create_image(0,0,image=self.planning_img,anchor="nw")
         self.planning_canvas.pack(fill="both", expand=True)
